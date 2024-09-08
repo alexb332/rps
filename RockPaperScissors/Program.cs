@@ -6,20 +6,38 @@ namespace RockPaperScissors
     {
         static void Main(string[] args)
         {
-            while (true)
+            Console.WriteLine("Please enter r for random choices or c for copycat from the computer opponent");
+            char input = Console.ReadLine().ToLower().ToCharArray()[0];
+            if (input == 'r')
             {
-                baseRPS();
-                Console.ReadLine();
-                Console.Clear();
+                while (true)
+                {
+                    randRPS();
+                    Console.ReadLine();
+                    Console.Clear();
+                }
             }
+            else if(input == 'c')
+            {
+                int previous = -1;
+                while (true)
+                {
+                    previous = copyRPS(previous);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
+
+
+
         }
 
-        static void baseRPS()
+        static void randRPS()
         {
             Random rand = new Random();
 
-            Console.WriteLine("Enter your option");
-            char choice = Console.ReadLine().ToCharArray()[0];
+            Console.WriteLine("Enter your option (r/p/s)");
+            char choice = Console.ReadLine().ToLower().ToCharArray()[0];
             Option player = new Option(choice);
 
             Option computer = new Option(rand.Next(3));
@@ -46,6 +64,49 @@ namespace RockPaperScissors
             }
             Console.WriteLine("Press Enter to play again");
 
+        }
+
+        static int copyRPS(int prev)
+        {
+            Random rand = new Random();
+
+            Console.WriteLine("Enter your option (r/p/s)");
+            char choice = Console.ReadLine().ToLower().ToCharArray()[0];
+            Option player = new Option(choice);
+
+            //---------------------------
+            Option computer;
+            if (prev == -1)
+            {
+                // Random if first rotation
+                computer = new Option(rand.Next(3));
+            }
+            else
+            {
+                computer = new Option(prev);
+            }
+            //---------------------------
+
+            int outcome = Option.compareOption(player, computer);
+
+            Console.WriteLine("You played:          " + player.getStr());
+            Console.WriteLine("And computer player: " + computer.getStr());
+
+            switch (outcome)
+            {
+                case 0:
+                    Console.WriteLine("So it's a Draw");
+                    break;
+                case 1:
+                    Console.WriteLine("You Win!");
+                    break;
+                case 2:
+                    Console.WriteLine("You Lose :(");
+                    break;
+            }
+            Console.WriteLine("Press Enter to play again");
+
+            return player.getInt();
         }
     }
 }

@@ -33,6 +33,8 @@ namespace RockPaperScissors
                     optStr = "Scissors";
                     compInt = 2;
                     break;
+                default:
+                    throw new ArgumentException("Invalid constructor input");
             }
         }
         public Option(int type)
@@ -48,6 +50,8 @@ namespace RockPaperScissors
                 case 2:
                     optStr = "Scissors";
                     break;
+                default:
+                    throw new ArgumentException("Invalid constructor input");
             }
             compInt = type;
         }
