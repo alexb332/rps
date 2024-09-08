@@ -6,33 +6,21 @@ namespace RockPaperScissors
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please enter r for random choices or c for copycat from the computer opponent");
-            char input = Console.ReadLine().ToLower().ToCharArray()[0];
-            if (input == 'r')
+            Console.WriteLine("Please enter 0 for random choices or 1 for copycat from the computer opponent");
+            int input = Console.ReadLine().ToCharArray()[0] - '0';
+            int previous = -1;
+            while (true)
             {
-                while (true)
-                {
-                    randRPS();
-                    Console.ReadLine();
-                    Console.Clear();
-                }
+                Console.WriteLine(previous);
+                previous = baseRPS(input, previous);
+                Console.ReadLine();
+                Console.Clear();
             }
-            else if(input == 'c')
-            {
-                int previous = -1;
-                while (true)
-                {
-                    previous = copyRPS(previous);
-                    Console.ReadLine();
-                    Console.Clear();
-                }
-            }
-
 
 
         }
 
-        static void randRPS()
+        static int baseRPS(int compChoice, int prev)
         {
             Random rand = new Random();
 
@@ -40,11 +28,20 @@ namespace RockPaperScissors
             char choice = Console.ReadLine().ToLower().ToCharArray()[0];
             Option player = new Option(choice);
 
-            Option computer = new Option(rand.Next(3));
+            // Will get overwritten
+            Option computer = new Option(0);
 
+            if (compChoice == 0)
+            {
+                computer = new Option(rand.Next(3));
+            }
+            else if (compChoice == 1)
+            {
+                computer = previousChoice(prev, rand);
+            }
+
+            // Judge winner
             int outcome = Option.compareOption(player, computer);
-
-
 
 
             Console.WriteLine("You played:          " + player.getStr());
@@ -64,49 +61,23 @@ namespace RockPaperScissors
             }
             Console.WriteLine("Press Enter to play again");
 
+            // Return player choice for next round
+            return player.getInt();
         }
 
-        static int copyRPS(int prev)
+        private static Option previousChoice(int prev, Random rand)
         {
-            Random rand = new Random();
-
-            Console.WriteLine("Enter your option (r/p/s)");
-            char choice = Console.ReadLine().ToLower().ToCharArray()[0];
-            Option player = new Option(choice);
-
-            //---------------------------
-            Option computer;
+            Option output;
             if (prev == -1)
             {
                 // Random if first rotation
-                computer = new Option(rand.Next(3));
+                output = new Option(rand.Next(3));
             }
             else
             {
-                computer = new Option(prev);
+                output = new Option(prev);
             }
-            //---------------------------
-
-            int outcome = Option.compareOption(player, computer);
-
-            Console.WriteLine("You played:          " + player.getStr());
-            Console.WriteLine("And computer player: " + computer.getStr());
-
-            switch (outcome)
-            {
-                case 0:
-                    Console.WriteLine("So it's a Draw");
-                    break;
-                case 1:
-                    Console.WriteLine("You Win!");
-                    break;
-                case 2:
-                    Console.WriteLine("You Lose :(");
-                    break;
-            }
-            Console.WriteLine("Press Enter to play again");
-
-            return player.getInt();
+            return output;
         }
     }
 }
