@@ -8,18 +8,32 @@ namespace RockPaperScissors
         {
             Console.WriteLine("Please enter 0 for random choices or 1 for copycat from the computer opponent");
             int input = Console.ReadLine().ToCharArray()[0] - '0';
+            Console.WriteLine("And would you like to play with lizard & spock? (Y/N)");
+            char addYN = Console.ReadLine().ToLower().ToCharArray()[0];
+            Console.Clear();
             int previous = -1;
-            while (true)
+            if (addYN == 'y')
             {
-                Console.WriteLine(previous);
-                previous = rpsls(input, previous);
+                while (previous != -2)
+                {
+                    previous = rpsls(input, previous);
+                }
             }
+            else
+            {
+                while (previous != -2)
+                {
+                    previous = rps(input, previous);
+                }
+            }
+
         }
 
         static int rps(int compChoice, int prev)
         {
             Random rand = new Random();
 
+            Console.WriteLine("ROCK PAPER SCISSORS");
             Console.WriteLine("Enter your option: ");
             Console.WriteLine("r = rock");
             Console.WriteLine("p = paper");
@@ -58,12 +72,20 @@ namespace RockPaperScissors
                     Console.WriteLine("You Lose :(");
                     break;
             }
-            Console.WriteLine("Press Enter to play again");
-            Console.ReadLine();
+            Console.WriteLine("Press Enter to play again or enter 'x' to quit");
+            string leave = Console.ReadLine().ToLower();
             Console.Clear();
 
-            // Return player choice for next round
-            return player.getInt();
+
+            // Return player choice for next round or exit
+            if(leave != "x")
+            {
+                return player.getInt();
+            }
+            else
+            {
+                return -2;
+            }
         }
 
 
@@ -71,6 +93,7 @@ namespace RockPaperScissors
         {
             Random rand = new Random();
 
+            Console.WriteLine("ROCK PAPER SCISSORS LIZARD SPOCK");
             Console.WriteLine("Enter your option: ");
             Console.WriteLine("r = rock");
             Console.WriteLine("p = paper");
@@ -111,12 +134,20 @@ namespace RockPaperScissors
                     Console.WriteLine("You Lose :(");
                     break;
             }
-            Console.WriteLine("Press Enter to play again");
-            Console.ReadLine();
+            Console.WriteLine("Press Enter to play again or enter 'x' to quit");
+            string leave = Console.ReadLine().ToLower();
             Console.Clear();
 
-            // Return player choice for next round
-            return player.getInt();
+
+            // Return player choice for next round or exit
+            if (leave != "x")
+            {
+                return player.getInt();
+            }
+            else
+            {
+                return -2;
+            }
         }
 
 

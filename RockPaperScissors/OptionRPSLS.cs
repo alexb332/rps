@@ -71,31 +71,17 @@ namespace RockPaperScissors
 
         public static int compareOption(OptionRPSLS op1, OptionRPSLS op2)
         {
-            Console.WriteLine(op1.compInt);
-            Console.WriteLine(op2.compInt);
             if (op1.compInt == (op2.compInt + 1) % 5
                || op1.compInt == (op2.compInt + 3) % 5)
             {
-                Console.WriteLine("h1");
                 return 1;
             }
             // modulus in c# is remainder so +4 works when -1 doesnt as it means the same but does not go negative
             else if (op1.compInt == (op2.compInt + 4) % 5
                 || op1.compInt == (op2.compInt + 2) % 5)
             {
-                Console.WriteLine("h2");
                 return 2;
             }
-            //else if (op1.compInt == (op2.compInt + 2) % 5)
-            //{
-            //    Console.WriteLine("h3");
-            //    return 1;
-            //}
-            //else if (op1.compInt == (op2.compInt + 3) % 5)
-            //{
-            //    Console.WriteLine("h4");
-            //    return 2;
-            //}
             else
             {
                 // 0 represents a draw
