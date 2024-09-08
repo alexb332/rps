@@ -13,11 +13,7 @@ namespace RockPaperScissors
             {
                 Console.WriteLine(previous);
                 previous = baseRPS(input, previous);
-                Console.ReadLine();
-                Console.Clear();
             }
-
-
         }
 
         static int baseRPS(int compChoice, int prev)
@@ -60,6 +56,8 @@ namespace RockPaperScissors
                     break;
             }
             Console.WriteLine("Press Enter to play again");
+            Console.ReadLine();
+            Console.Clear();
 
             // Return player choice for next round
             return player.getInt();
