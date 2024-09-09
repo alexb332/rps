@@ -7,9 +7,31 @@ namespace RockPaperScissors
         static void Main(string[] args)
         {
             Console.WriteLine("Please enter 0 for random choices or 1 for copycat from the computer opponent");
-            int input = Console.ReadLine().ToCharArray()[0] - '0';
+            int input;
+            try { input = Console.ReadLine().ToCharArray()[0] - '0'; }
+            catch { input = 2; }
+
+            // Input validation
+            while (input != 0 && input != 1)
+            {
+                Console.WriteLine("Invalid input, please enter 1 or 0");
+                try { input = Console.ReadLine().ToCharArray()[0] - '0'; }
+                catch { input = 2; }
+            }
+
             Console.WriteLine("And would you like to play with lizard & spock? (Y/N)");
-            char addYN = Console.ReadLine().ToLower().ToCharArray()[0];
+            char addYN;
+            try { addYN = Console.ReadLine().ToLower().ToCharArray()[0]; }
+            catch { addYN = 'x'; }
+
+            // Input validation
+            while (addYN != 'y' && addYN != 'n')
+            {
+                Console.WriteLine("Invalid input, please enter 'y' or 'n' for the respective game mode");
+                try { addYN = Console.ReadLine().ToLower().ToCharArray()[0]; }
+                catch { addYN = 'x'; }
+            }
+
             Console.Clear();
             int previous = -1;
             if (addYN == 'y')
@@ -38,7 +60,19 @@ namespace RockPaperScissors
             Console.WriteLine("r = rock");
             Console.WriteLine("p = paper");
             Console.WriteLine("s = scissors");
-            char choice = Console.ReadLine().ToLower().ToCharArray()[0];
+            char choice;
+            try { choice = Console.ReadLine().ToLower().ToCharArray()[0]; }
+            catch { choice = 'x'; }
+
+            // Input validation
+            while (choice != 'r' && choice != 'p' && choice != 's')
+            {
+                Console.WriteLine("Invalid input, please enter one of r/p/s for your choice");
+                try { choice = Console.ReadLine().ToLower().ToCharArray()[0]; }
+                catch { choice = 'x'; }
+            }
+
+
             Option player = new Option(choice);
 
             // Will get overwritten
@@ -78,7 +112,7 @@ namespace RockPaperScissors
 
 
             // Return player choice for next round or exit
-            if(leave != "x")
+            if (leave != "x")
             {
                 return player.getInt();
             }
@@ -101,6 +135,16 @@ namespace RockPaperScissors
             Console.WriteLine("l = lizard");
             Console.WriteLine("v = spock");
             char choice = Console.ReadLine().ToLower().ToCharArray()[0];
+
+            // Input validation
+            while (choice != 'r' && choice != 'p' && choice != 's' && choice != 'l' && choice != 'v')
+            {
+                Console.WriteLine("Invalid input, please enter one of r/p/s/l/v for your choice");
+                try { choice = Console.ReadLine().ToLower().ToCharArray()[0]; }
+                catch { choice = 'x';  }
+            }
+
+
             OptionRPSLS player = new OptionRPSLS(choice);
 
             // Will get overwritten
